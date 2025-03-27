@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { vibhagData } from "../database/dataserver"; // Ensure correct import path
 import { Link } from "react-router-dom";
-import BackButton from "/home/yogitha/Sangha_project/Sangha_project/ClientSps/src/back.tsx"; // Import back button
+import BackButton from "../back"; // Import back button
 //import "../styles/Bhag.css"; // Ensure CSS file exists
 
 export default function Bhag() {

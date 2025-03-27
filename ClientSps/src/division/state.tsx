@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { districtsData } from "/home/yogitha/Sangha_project/Sangha_project/ClientSps/src/database/dataserver.ts";
+import { districtsData } from "../database/dataserver";
 
 export default function Prantya() {
   const navigate = useNavigate();
