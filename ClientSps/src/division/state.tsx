@@ -15,7 +15,7 @@ export default function Prantya() {
 
   return (
     <div className="container">
-      <h1 className="title">ಕರ್ನಾಟಕ ಜಿಲ್ಲೆಯ ಪ್ರಾಂತ್ಯ</h1>
+      <h1 className="title">ಕರ್ನಾಟಕ ದಕ್ಷಿಣ ಪ್ರಾಂತ</h1>
       <div className="district-grid">
         {districts.map((district, index) => (
           <div 
