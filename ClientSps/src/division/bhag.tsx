@@ -1,29 +1,43 @@
-import { useParams } from "react-router-dom";
-import { vibhagData } from "../database/dataserver"; // Ensure correct import path
-import { Link } from "react-router-dom";
-import BackButton from "../back"; // Import back button
-//import "../styles/Bhag.css"; // Ensure CSS file exists
+import { useEffect, useState } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import axios from "axios";
+import "../Styling/Bhag.css";
 
-export default function Bhag() {
-  const { vibhag } = useParams<{ vibhag: string }>(); // Get Vibhag from URL
-  const bhags = vibhag && vibhagData[vibhag] ? vibhagData[vibhag] : [];
+interface Bhag {
+  _id: string;
+  name: string;
+}
+
+function Bhag() {
+  const [bhags, setBhags] = useState<Bhag[]>([]);
+  const { vibhagId} = useParams<{ vibhagId: string }>();
+  const location = useLocation();
+  const vibhagName = location.state?.vibhagName || "ವಿಭಾಗ";
+  const navigate = useNavigate();
+
+  console.log(vibhagId)
+  useEffect(() => {
+    axios.get(`http://localhost:4000/api/bhags/${vibhagId}`).then((res) => {
+      setBhags(res.data);
+    });
+  }, [vibhagId]);
+
+  const handleClick = (bhag: Bhag) => {
+    navigate(`/nagar/${bhag._id}`, { state: { bhagName: bhag.name } });
+  };
 
   return (
-    <div className="container">
-      <h1 className="title">{vibhag ? `${vibhag} ಭಾಗ` : "ಭಾಗ ಲಭ್ಯವಿಲ್ಲ"}</h1>
-      <BackButton /> {/* Add Back Button */}
-
-      {bhags.length > 0 ? (
-        <div className="district-grid">
-          {bhags.map((bhag, index) => (
-            <Link key={index} to={`/bhag/${bhag}`} className="district-box">
-              {bhag}
-            </Link>
-          ))}
-        </div>
-      ) : (
-        <p className="no-data">ಯಾವುದೇ ಭಾಗಗಳು ಲಭ್ಯವಿಲ್ಲ</p>
-      )}
+    <div className="page-container">
+      <h2>{vibhagName}</h2>
+      <div className="button-group">
+        {bhags.map((bhag) => (
+          <button key={bhag._id} onClick={() => handleClick(bhag)}>
+            {bhag.name}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
+
+export default Bhag;

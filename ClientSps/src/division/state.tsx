@@ -1,32 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { districtsData } from "../database/dataserver";
+import axios from "axios";
+import "../Styling/Prant.css";
 
-export default function Prantya() {
+interface Prant {
+  _id: string;
+  name: string;
+}
+
+function Prant() {
+  const [prants, setPrants] = useState<Prant[]>([]);
   const navigate = useNavigate();
-  const districts = Object.keys(districtsData); // Extract district names
-  const [, setSelectedDistrict] = useState("");
 
-  // Function to handle district selection and navigate to Vibhaga
-  const handleSelectDistrict = (district: string) => {
-    setSelectedDistrict(district);
-    navigate(`/vibhaga/${encodeURIComponent(district)}`); // Navigate with district param
+  useEffect(() => {
+    axios.get("http://localhost:4000/api/prants").then((res) => {
+      setPrants(res.data);
+    });
+  }, []);
+
+  const handleClick = (prant: Prant) => {
+    navigate(`/vibhag/${prant._id}`, { state: { prantName: prant.name } });
   };
 
   return (
-    <div className="container">
-      <h1 className="title">ಕರ್ನಾಟಕ ದಕ್ಷಿಣ ಪ್ರಾಂತ</h1>
-      <div className="district-grid">
-        {districts.map((district, index) => (
-          <div 
-            key={index} 
-            className="district-box cursor-pointer"
-            onClick={() => handleSelectDistrict(district)}
-          >
-            {district}
-          </div>
+    <div className="page-container">
+      <h2>ಪ್ರಾಂತವನ್ನು ಆಯ್ಕೆಮಾಡಿ</h2>
+      <div className="button-group">
+        {prants.map((prant) => (
+          <button key={prant._id} onClick={() => handleClick(prant)}>
+            {prant.name}
+          </button>
         ))}
       </div>
     </div>
   );
 }
+
+export default Prant;

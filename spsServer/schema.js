@@ -1,53 +1,49 @@
 const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-const upavasatiSchema = new Schema({
-  name: { type: String },
+
+const PrantSchema = new Schema({
+  name: { type: String, required: true },
+  // vibhags: [{ type: Schema.Types.ObjectId, ref: "Vibhag" }]
 });
 
-const Upavasati = mongoose.model("upavasatis", upavasatiSchema);
-
-const vasatiSchema = new Schema({
-  name: String,
-  upavasatis: [{ type: mongoose.Schema.Types.ObjectId, ref: "upavasatis" }],
+const VibhagSchema = new Schema({
+  name: { type: String, required: true },
+  prant: { type: Schema.Types.ObjectId, ref: "Prant" },
+  // bhags: [{ type: Schema.Types.ObjectId, ref: "Bhag" }]
 });
 
-const Vasati = mongoose.model("vasatis", vasatiSchema);
-
-const nagarSchema = new Schema({
-  name: String,
-  vasatis: [{ type: mongoose.Schema.Types.ObjectId, ref: "vasatis" }],
+const BhagSchema = new Schema({
+  name: { type: String, required: true },
+  vibhag: { type: Schema.Types.ObjectId, ref: "Vibhag" },
+  // nagars: [{ type: Schema.Types.ObjectId, ref: "Nagar" }]
 });
 
-const Nagar = mongoose.model("nagars", nagarSchema);
-
-const bhagSchema = new Schema({
-  name: String,
-  nagars: [{ type: mongoose.Schema.Types.ObjectId, ref: "nagars" }],
+const NagarSchema = new Schema({
+  name: { type: String, required: true },
+  bhag: { type: Schema.Types.ObjectId, ref: "Bhag" },
+  // vasatis: [{ type: Schema.Types.ObjectId, ref: "Vasati" }]
 });
 
-const Bhag = mongoose.model("bhags", bhagSchema);
-
-const vibhagSchema = new Schema({
-  name: String,
-  bhags: [{ type: mongoose.Schema.Types.ObjectId, ref: "bhags" }],
+const VasatiSchema = new Schema({
+  name: { type: String, required: true },
+  nagar: { type: Schema.Types.ObjectId, ref: "Nagar" },
+  // upavasatis: [{ type: Schema.Types.ObjectId, ref: "Upavasati" }]
 });
 
-const Vibhag = mongoose.model("vibhags", vibhagSchema);
-
-const prantSchema = new Schema({
-  name: String,
-  vibhags: [{ type: mongoose.Schema.Types.ObjectId, ref: "vibhags" }],
+const UpavasatiSchema = new Schema({
+  name: { type: String, required: true },
+  
+  vasati: { type: Schema.Types.ObjectId, ref: "Vasati" }
 });
 
-const Prant = mongoose.model("prant", prantSchema);
+// Create models
+const Prant = mongoose.model("Prant", PrantSchema);
+const Vibhag = mongoose.model("Vibhag", VibhagSchema);
+const Bhag = mongoose.model("Bhag", BhagSchema);
+const Nagar = mongoose.model("Nagar", NagarSchema);
+const Vasati = mongoose.model("Vasati", VasatiSchema);
+const Upavasati = mongoose.model("Upavasati", UpavasatiSchema);
 
-module.exports = {
-  Upavasati,
-  Vasati,
-  Nagar,
-  Bhag,
-  Vibhag,
-  Prant,
-};
+module.exports = { Prant, Vibhag, Bhag, Nagar, Vasati, Upavasati };

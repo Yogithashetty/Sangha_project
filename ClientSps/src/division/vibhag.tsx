@@ -1,27 +1,43 @@
-import { Link, useParams } from "react-router-dom";
-import { districtsData } from "../database/dataserver";
-//import  BackButton  from "../back";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import axios from "axios";
+import "../Styling/Vibhag.css";
 
-export default function Vibhaga() {
-  const { district } = useParams<{ district: string }>();
-  const vibhagas = district ? districtsData[district] || [] : [];
+interface Vibhag {
+  _id: string;
+  name: string;
+}
+
+function Vibhag() {
+  const [vibhags, setVibhags] = useState<Vibhag[]>([]);
+  const { prantId } = useParams<{ prantId: string }>();
+  const location = useLocation();
+  const prantName = location.state?.prantName || "ಪ್ರಾಂತ";
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get(`http://localhost:4000/api/vibhags/${prantId}`).then((res) => {
+      setVibhags(res.data);
+    });
+  }, [prantId]);
+
+  const handleClick = (vibhag: Vibhag) => {
+    console.log(vibhag._id)
+    navigate(`/bhag/${vibhag._id}`, { state: { vibhagName: vibhag.name } });
+  };
 
   return (
-    <div className="container">
-      <h1 className="title">{district} ವಿಭಾಗ</h1>
-
-
-      {vibhagas.length > 0 ? (
-        <div className="district-grid">
-          {vibhagas.map((vibhag, index) => (
-            <Link key={index} to={`/bhag/${vibhag}`} className="district-box">
-              {vibhag}
-            </Link>
-          ))}
-        </div>
-      ) : (
-        <p className="no-data">ಯಾವುದೇ ವಿಭಾಗಗಳು ಲಭ್ಯವಿಲ್ಲ</p>
-      )}
+    <div className="page-container">
+      <h2>{prantName}</h2>
+      <div className="button-group">
+        {vibhags.map((vibhag) => (
+          <button key={vibhag._id} onClick={() => handleClick(vibhag)}>
+            {vibhag.name}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
+
+export default Vibhag;

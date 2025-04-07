@@ -2,39 +2,34 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 const cors = require("cors");
-const prantRoutes = require("./PranthRoute");
-const Prant = require("./pranthmodel"); // Import Prant model
+const axios = require("axios");
 
-mongoose.connect("mongodb+srv://vtech2025b1:I34ZlC4julSjebsU@vtech2025b1.disrm.mongodb.net/test27?retryWrites=true&w=majority&appName=vtech2025b1")
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.error("MongoDB Connection Error:", err));
+const prantRoutes = require("./Entity/PranthRoute");
+const vibhagRoutes = require("./Entity/vibhag");
+const bhagRoutes = require("./Entity/Bhag");
+const nagarRoutes = require("./Entity/Nagar");
+const vasathiRoutes = require("./Entity/Vasathi");
+const upavasathiRoutes = require("./Entity/Upavasathi");
+
+
+mongoose
+  .connect("mongodb+srv://vtech2025b1:I34ZlC4julSjebsU@vtech2025b1.disrm.mongodb.net/REVERSE00?retryWrites=true&w=majority&appName=vtech2025b1")
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
 const app = express();
 app.use(bodyparser.json());
 app.use(cors());
 
-// Use Prant API
-app.use("/api", prantRoutes);
+// All routes
+app.use("/api/prants", prantRoutes);     // /api/prants
+app.use("/api/vibhags", vibhagRoutes);   // /api/vibhags/:prantId
+app.use("/api", bhagRoutes);             // /api/bhags/:vibhagId
+app.use("/api", nagarRoutes);
+app.use("/api", vasathiRoutes);
+app.use("/api", upavasathiRoutes);
 
-// Fetch and log Prant names when server starts
-async function fetchAndLogPrants() {
-  try {
-    const prants = await Prant.find({}, "name");
 
-    if (prants.length > 0) {
-      console.log("Available Prants:");
-      prants.forEach(prant => console.log(prant.name));
-    } else {
-      console.log("No Prants found in the database.");
-    }
-  } catch (error) {
-    console.error("Error fetching Prants:", error);
-  }
-}
-
-// Call function to fetch and log Prants
-fetchAndLogPrants();
-
-app.listen(3000, () => {
-  console.log("Server is running on Port 3000");
+app.listen(4000, () => {
+  console.log("🚀 Server is running on Port 4000");
 });

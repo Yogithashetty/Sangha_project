@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
-import "./App.css"; // Separate CSS file for the header
+import "./App.css";
 
 function Header() {
+  console.log("✅ Header is rendered");
+
   return (
     <header className="header">
       <div className="header-left">

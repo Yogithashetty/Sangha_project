@@ -1,22 +1,18 @@
-const { Prant } = require("./schema"); // Import the Prant model
+const express = require("express");
+const router = express.Router();
+const { Vibhag } = require("../schema");
 
-// Function to fetch Vibhags by Prant Name
-const getVibhagsByPrant = async (req, res) => {
+// GET all vibhags for a specific prant
+router.get("/:prantId", async (req, res) => {
   try {
-    const { prantName } = req.params;
-
-    // Find the Prant by name and populate Vibhags
-    const prant = await Prant.findOne({ name: prantName }).populate("vibhags");
-
-    if (!prant) {
-      return res.status(404).json({ message: "Prant not found" });
-    }
-
-    res.json(prant.vibhags); // Return only Vibhags
-  } catch (error) {
-    console.error("Error fetching Vibhags:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    const { prantId } = req.params;
+    const vibhags = await Vibhag.find({ prant: prantId });
+    console.log(`📥 Vibhags fetched for Prant ID ${prantId}:`, vibhags);
+    res.json(vibhags);
+  } catch (err) {
+    console.error("❌ Error fetching vibhags:", err);
+    res.status(500).json({ error: err.message });
   }
-};
+});
 
-module.exports = { getVibhagsByPrant };
+module.exports = router;

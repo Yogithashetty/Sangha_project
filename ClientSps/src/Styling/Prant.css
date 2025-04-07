@@ -1,0 +1,59 @@
+/* Full screen centered layout */
+.page-container {
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Title */
+.page-container h2 {
+  font-size: 1.8rem;
+  color: #003a9b;
+  margin-bottom: 1.5rem;
+}
+
+/* Fetch button */
+.fetch-btn {
+  padding: 12px 24px;
+  font-size: 18px;
+  background-color: #0056d2;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.fetch-btn:hover {
+  background-color: #003a9b;
+}
+
+/* Group of buttons */
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Prant buttons */
+.button-group button {
+  padding: 1rem 2rem;
+  font-size: 16px;
+  background-color: #f2f8ff;
+  color: #003a9b;
+  border: 2px solid #003a9b;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button-group button:hover {
+  background-color: #d9e8ff;
+}
