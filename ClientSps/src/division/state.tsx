@@ -19,7 +19,7 @@ function Prant() {
   }, []);
 
   const handleClick = (prant: Prant) => {
-    navigate(`/vibhag/${prant._id}`, { state: { prantName: prant.name } });
+    navigate(`/vibhag/${prant._id}`);
   };
 
   return (

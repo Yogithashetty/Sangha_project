@@ -23,7 +23,7 @@ function Bhag() {
   }, [vibhagId]);
 
   const handleClick = (bhag: Bhag) => {
-    navigate(`/nagar/${bhag._id}`, { state: { bhagName: bhag.name } });
+    navigate(`/nagar/${bhag._id}`);
   };
 
   return (

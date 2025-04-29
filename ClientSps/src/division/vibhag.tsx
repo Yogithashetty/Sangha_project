@@ -23,7 +23,7 @@ function Vibhag() {
 
   const handleClick = (vibhag: Vibhag) => {
     console.log(vibhag._id)
-    navigate(`/bhag/${vibhag._id}`, { state: { vibhagName: vibhag.name } });
+    navigate(`/bhag/${vibhag._id}`);
   };
 
   return (

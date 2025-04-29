@@ -22,7 +22,7 @@ function Vasathi() {
   }, [nagarId]);
 
   const handleClick = (vasathi: Vasathi) => {
-    navigate(`/upavasathi/${vasathi._id}`, { state: { vasathiName: vasathi.name } });
+    navigate(`/upavasathi/${vasathi._id}`);
   };
 
   return (
