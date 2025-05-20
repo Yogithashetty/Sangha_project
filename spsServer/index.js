@@ -10,7 +10,7 @@ const bhagRoutes = require("./Entity/Bhag");
 const nagarRoutes = require("./Entity/Nagar");
 const vasathiRoutes = require("./Entity/Vasathi");
 const upavasathiRoutes = require("./Entity/Upavasathi");
-
+const eventsRoutes = require("./Entity/events"); 
 
 mongoose
   .connect("mongodb+srv://vtech2025b1:I34ZlC4julSjebsU@vtech2025b1.disrm.mongodb.net/REVERSE00?retryWrites=true&w=majority&appName=vtech2025b1")
@@ -28,6 +28,7 @@ app.use("/api", bhagRoutes);             // /api/bhags/:vibhagId
 app.use("/api", nagarRoutes);
 app.use("/api", vasathiRoutes);
 app.use("/api", upavasathiRoutes);
+app.use("/api", eventsRoutes);
 
 
 app.listen(4000, () => {

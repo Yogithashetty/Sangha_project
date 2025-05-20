@@ -8,6 +8,8 @@ import Vasathi from "../division/vasathi";
 import Upavasathi from "../division/upavasathi";
 //import EventParticipantsForm from "./components/EventParticipantsForm"; // example
 //import About from "./components/About"; // example
+import EventForm from "../division/event";
+import UpavasathiDetails from "../division/UpavasathiDetails";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +40,19 @@ export const router = createBrowserRouter([
         path: "/upavasathi/:vasathiId",
         element: <Upavasathi />,
       },
+      {
+        path: "/upavasathi-details/:upavasathiId",
+        element: <UpavasathiDetails />,
+      },
+      {
+        path: "/events/:eventId",
+        element: <EventForm />,
+      },
+      {
+        path : "/create-event/:upavasathiId",
+        element : <EventForm />,
+      }
+      
     //   {
     //     path: "/home/eventId/participantsform",
     //     element: <EventParticipantsForm />,
